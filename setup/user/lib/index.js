@@ -1,0 +1,1 @@
+exports.weeaboo = require('./weeaboo')
