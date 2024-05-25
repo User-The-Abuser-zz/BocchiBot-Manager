@@ -8,29 +8,26 @@ for /f "usebackq delims=" %%a in ("%configFile%") do (
     set "installDir=%%a"
 )
 
+set "bocchiDir=%installDir%\BocchiBot"
+
 set "versionFile=%installDir%\BocchiBot\version.txt"
 
-set "version=N/A"
-if exist "%versionFile%" (
-    for /f "usebackq delims=" %%a in ("%versionFile%") do (
-        set "version=%%a"
-    )
+set "version="
+for /f "usebackq delims=" %%a in ("%versionFile%") do (
+    set "version=%%a"
 )
 
-set "latestversionFile=.\setup\user\version.txt"
+set "currentversionFile=.\setup\user\version.txt"
 
-set "latestversion=N/A"
-if exist "%latestversionFile%" (
-    for /f "usebackq delims=" %%a in ("%latestversionFile%") do (
-        set "latestversion=%%a"
-    )
+set "currentversion="
+for /f "usebackq delims=" %%a in ("%currentversionFile%") do (
+    set "currentversion=%%a"
 )
 
-set "bocchiDir=%installDir%\BocchiBot"
 set "updateDir=.\setup\update"
 
 echo Installed Version: %version%
-echo Latest Version: %latestversion%
+echo Current Version: %currentversion%
 echo.
 echo Please use "Force Stop PM2" before updating BocchiBot by User! Do you want to continue? (Y/N)
 
@@ -42,8 +39,8 @@ if errorlevel 2 (
     exit /b
 )
 
-if exist "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" (
-    powershell -Command "Start-Process 'cmd' -Verb RunAs -ArgumentList 'echo Installing Update... && /c xcopy /E /I /Y /S /H "%updateDir%\*" "%bocchiDir%" && npm update && echo Update complete! && pause'"
-) else (
-    runas /user:Administrator "cmd /c echo Installing Update... && xcopy /E /I /Y /S /H "%updateDir%\*" "%bocchiDir%" && npm update && echo Update complete! && pause"
-)
+echo Installing Update...
+xcopy /E /I /Y /S /H "%updateDir%\*" "%bocchiDir%"
+
+echo Update complete!
+pause
