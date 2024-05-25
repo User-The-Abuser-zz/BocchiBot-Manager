@@ -70,9 +70,10 @@ Gui, +LastFound
     Gui, Add, Text,  x20 y347 w15 h30, 15
     Gui, Add, Button, x40 y340 w180 h30 gOpenNodeModulesCMD, Reinstall Node Modules
     Gui, Add, Text,  x440 y347 w30 h30, 16
-    Gui, Add, Button, x250 y340 w180 h30 gUpdateByUserCMD, Update by User
+    Gui, Add, Button, x250 y340 w180 h30 gOpenUpdateByUserCMD, Update by User
 
-    Gui, Add, Button, x40 y380 w390 h30 gExitButton, Exit
+    Gui, Add, Button, x40 y380 w180 h30 gOpenUpdateManagerCMD, Update Manager
+    Gui, Add, Button, x250 y380 w180 h30 gExitButton, Exit
 
     Gui, Show,, BocchiBot Manager 1.0.0
 Return
@@ -212,8 +213,13 @@ OpenNodeModulesCMD:
     Run, %A_ScriptDir%\setup\buttons\node_modules.cmd
 Return
 
-UpdateByUserCMD:
+OpenUpdateByUserCMD:
     Run, %A_ScriptDir%\setup\buttons\update_user.cmd
+Return
+
+OpenUpdateManagerCMD:
+    Run, %A_ScriptDir%\setup\buttons\update_manager.cmd
+    ExitApp
 Return
 
 ExitButton:
