@@ -17,17 +17,23 @@ for /f "usebackq delims=" %%a in ("%versionFile%") do (
     set "version=%%a"
 )
 
-set "currentversionFile=.\setup\user\version.txt"
+set "repoPath=https://github.com/User-The-Abuser/BocchiBot-Manager"
 
-set "currentversion="
-for /f "usebackq delims=" %%a in ("%currentversionFile%") do (
-    set "currentversion=%%a"
-)
+set "versionPath=https://raw.githubusercontent.com/User-The-Abuser/BocchiBot-Manager/main/setup/user/version.txt
 
-set "updateDir=.\setup\update"
+set "tempDir=%~dp0\repo_clone"
+
+set "tempFile=%~dp0\latestversion.tmp"
+
+certutil -urlcache -split -f "%versionPath%" "%tempFile%" >nul
+
+set "latestversion="
+< "%tempFile%" set /p latestversion=
+
+del "%tempFile%" >nul 2>&1
 
 echo Installed Version: %version%
-echo Current Version: %currentversion%
+echo Latest Version: %currentversion%
 echo.
 echo Please use "Force Stop PM2" before updating BocchiBot by User! Do you want to continue? (Y/N)
 
@@ -40,7 +46,27 @@ if errorlevel 2 (
 )
 
 echo Installing Update...
-xcopy /E /I /Y /S /H "%updateDir%\*" "%bocchiDir%"
+git clone "%repoPath%" "%tempDir%" >nul
+
+set "database=%tempDir%\setup\user\database"
+set "configjson=%tempDir%\setup\user\config.json"
+rmdir /s /q %database%
+del %configjson%
+
+xcopy /E /I /Y /S /H "%tempDir%\setup\user\*" "%bocchiDir%"
+
+rmdir /s /q "%tempDir%" >nul
+
+set "version="
+for /f "usebackq delims=" %%a in ("%versionFile%") do (
+    set "version=%%a"
+)
+
+cd %bocchiDir%
+npm update
 
 echo Update complete!
+echo Installed Version: %version%
+echo Latest Version: %latestversion%
+
 pause
