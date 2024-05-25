@@ -10,7 +10,7 @@ for /f "usebackq delims=" %%a in ("%versionFile%") do (
 
 set "repoPath=https://github.com/User-The-Abuser/BocchiBot-Manager"
 
-set "versionPath=https://raw.githubusercontent.com/User-The-Abuser/BocchiBot-Manager/main/version.txt
+set "versionPath=https://raw.githubusercontent.com/User-The-Abuser/BocchiBot-Manager/main/version.txt"
 
 set "tempDir=%~dp0\repo_clone"
 

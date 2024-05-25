@@ -19,7 +19,7 @@ for /f "usebackq delims=" %%a in ("%versionFile%") do (
 
 set "repoPath=https://github.com/User-The-Abuser/BocchiBot-Manager"
 
-set "versionPath=https://raw.githubusercontent.com/User-The-Abuser/BocchiBot-Manager/main/setup/user/version.txt
+set "versionPath=https://raw.githubusercontent.com/User-The-Abuser/BocchiBot-Manager/main/setup/user/version.txt"
 
 set "tempDir=%~dp0\repo_clone"
 
@@ -33,7 +33,7 @@ set "latestversion="
 del "%tempFile%" >nul 2>&1
 
 echo Installed Version: %version%
-echo Latest Version: %currentversion%
+echo Latest Version: %latestversion%
 echo.
 echo Please use "Force Stop PM2" before updating BocchiBot by User! Do you want to continue? (Y/N)
 
