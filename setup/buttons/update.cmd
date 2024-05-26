@@ -8,7 +8,7 @@ for /f "usebackq delims=" %%a in ("%configFile%") do (
     set "installDir=%%a"
 )
 
-echo Please use "Force Stop PM2" before updating BocchiBot! Do you want to continue? (Y/N)
+echo Please use "Force Stop" before updating BocchiBot! Do you want to continue? (Y/N)
 choice /c yn /n >nul
 
 if errorlevel 2 (
