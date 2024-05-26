@@ -5,9 +5,10 @@ setlocal
 where choco >nul 2>nul
 if %errorlevel% neq 0 (
     start "" /wait msiexec /i .\setup\chocolatey-2.2.2.0.msi /quiet /norestart
-    timeout /t 1 /nobreak >nul
-    goto check_choco
+    goto check_choco_done
 )
+
+:check_choco_done
 
 :check_git
 where git >nul 2>nul
@@ -17,9 +18,10 @@ if %errorlevel% neq 0 (
     ) else (
         runas /user:Administrator "cmd /c choco install git -y"
     )
-    timeout /t 1 /nobreak >nul
-    goto check_git
+    goto :check_git_done
 )
+
+:check_git_done
 
 set "versionFile=.\version.txt"
 
