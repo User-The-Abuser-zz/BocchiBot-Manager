@@ -38,7 +38,7 @@ Based on BocchiBot (1.5.0): https://github.com/SlavyanDesu/BocchiBot
 | Option 16: Update by User	     | Note:	    Updates BocchiBot by User to current version     |
 |----------------------------------------------------------------------------------------------------|
 
-[BocchiBot 1.7.1 by User] Update History:
+[BocchiBot 1.6.0 by User] Update History:
 
 - Removed Menu 1 [Downloader]
 - Removed Commands: ocr, genshin, toptt, translate, quizizz, kemono, trash, hitler
