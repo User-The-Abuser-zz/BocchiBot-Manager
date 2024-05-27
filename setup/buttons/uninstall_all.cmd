@@ -8,8 +8,6 @@ for /f "usebackq delims=" %%a in ("%configFile%") do (
     set "installDir=%%a"
 )
 
-set "packages=ffmpeg nodejs-lts git chocolatey"
-
 echo Please restart your PC before uninstalling BocchiBot! Do you want to continue? (Y/N)
 choice /c yn /n >nul
 
@@ -19,27 +17,52 @@ if errorlevel 2 (
     exit /b
 )
 
-set "script="
-set "script=%script%pm2 kill && echo Uninstalling BocchiBot. Please wait... && rmdir /s /q %installDir% && "
-set "script=%script%choco -? >nul 2>&1 && if errorlevel 1 (echo Chocolatey is not installed.) && "
-set "script=%script%for %%i in (%packages%) do (choco list --local-only | findstr /c:"%%i" >nul && if not errorlevel 1 (echo Uninstalling %%i... && choco uninstall %%i -y) else (echo %%i is not installed.)) && "
-set "script=%script%rmdir /s /q C:\ProgramData\chocolatey && "
-set "script=%script%rmdir /s /q C:\ProgramData\ChocolateyHttpCache && "
-set "script=%script%rmdir /s /q C:\Users\%USERNAME%\.chocolatey && "
-set "script=%script%rmdir /s /q C:\Users\%USERNAME%\.cache && "
-set "script=%script%rmdir /s /q C:\Users\%USERNAME%\.config && "
-set "script=%script%rmdir /s /q C:\Users\%USERNAME%\.pm2 && "
-set "script=%script%rmdir /s /q C:\Users\%USERNAME%\AppData\Local\npm-cache && "
-set "script=%script%rmdir /s /q C:\Users\%USERNAME%\AppData\Roaming\npm && "
-set "script=%script%rmdir /s /q C:\Users\%USERNAME%\AppData\Roaming\npm-cache && "
-set "script=%script%rmdir /s /q C:\Program Files\Git && "
-set "script=%script%rmdir /s /q C:\Program Files\nodejs && "
-set "script=%script%echo Uninstall complete! && pause"
-
 if exist "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" (
-    powershell -Command "Start-Process 'cmd' -Verb RunAs -ArgumentList '/c %script%'"
+    powershell -Command "Start-Process 'cmd' -Verb RunAs -ArgumentList '/c
+pm2 kill
+echo Uninstalling BocchiBot. Please wait...
+rmdir /s /q %installDir%
+choco uninstall ffmpeg -y
+choco uninstall nodejs-lts -y
+choco uninstall git -y
+choco uninstall chocolatey -y
+rmdir /s /q C:\ProgramData\chocolatey
+rmdir /s /q C:\ProgramData\ChocolateyHttpCache
+rmdir /s /q C:\Users\%USERNAME%\.chocolatey
+rmdir /s /q C:\Users\%USERNAME%\.cache
+rmdir /s /q C:\Users\%USERNAME%\.config
+rmdir /s /q C:\Users\%USERNAME%\.pm2
+rmdir /s /q C:\Users\%USERNAME%\AppData\Local\npm-cache
+rmdir /s /q C:\Users\%USERNAME%\AppData\Roaming\npm
+rmdir /s /q C:\Users\%USERNAME%\AppData\Roaming\npm-cache
+rmdir /s /q C:\Program Files\Git
+rmdir /s /q C:\Program Files\nodejs
+echo Uninstall complete!
+pause
+'"
 ) else (
-    runas /user:Administrator "cmd /c %script%"
+    runas /user:Administrator "cmd /c
+pm2 kill
+echo Uninstalling BocchiBot. Please wait...
+rmdir /s /q %installDir%
+choco uninstall ffmpeg -y
+choco uninstall nodejs-lts -y
+choco uninstall git -y
+choco uninstall chocolatey -y
+rmdir /s /q C:\ProgramData\chocolatey
+rmdir /s /q C:\ProgramData\ChocolateyHttpCache
+rmdir /s /q C:\Users\%USERNAME%\.chocolatey
+rmdir /s /q C:\Users\%USERNAME%\.cache
+rmdir /s /q C:\Users\%USERNAME%\.config
+rmdir /s /q C:\Users\%USERNAME%\.pm2
+rmdir /s /q C:\Users\%USERNAME%\AppData\Local\npm-cache
+rmdir /s /q C:\Users\%USERNAME%\AppData\Roaming\npm
+rmdir /s /q C:\Users\%USERNAME%\AppData\Roaming\npm-cache
+rmdir /s /q C:\Program Files\Git
+rmdir /s /q C:\Program Files\nodejs
+echo Uninstall complete!
+pause
+"
 )
 
 if exist "%USERPROFILE%\Desktop\BocchiBot Manager.lnk" (
